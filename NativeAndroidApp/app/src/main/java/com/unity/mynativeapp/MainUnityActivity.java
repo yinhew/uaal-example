@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.company.product.OverrideUnityActivity;
+import com.unity3d.player.OverrideUnityActivity;
 
 public class MainUnityActivity extends OverrideUnityActivity {
     // Setup activity layout
