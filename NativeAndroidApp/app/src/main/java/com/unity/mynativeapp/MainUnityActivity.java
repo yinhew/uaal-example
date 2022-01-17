@@ -2,10 +2,10 @@ package com.unity.mynativeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Process;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.unity3d.player.OverrideUnityActivity;
 
@@ -14,9 +14,13 @@ public class MainUnityActivity extends OverrideUnityActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addControlsToUnityFrame();
+        addControlsToFrame();
         Intent intent = getIntent();
         handleIntent(intent);
+
+        mUnityPlayer.setX(140);
+        mUnityPlayer.setY(300);
+        mUnityPlayer.setLayoutParams(new FrameLayout.LayoutParams(800,1000));
     }
 
     @Override
@@ -47,13 +51,28 @@ public class MainUnityActivity extends OverrideUnityActivity {
         showMainActivity("");
     }
 
-    public void addControlsToUnityFrame() {
-        FrameLayout layout = mUnityPlayer;
+    public void addControlsToFrame() {
+        FrameLayout layout = (FrameLayout) getWindow().getDecorView();
+        layout.setBackgroundColor(0xff009f9f);
+
+        for (int x = 0; x < 5; ++x)
+        {
+            for (int y = 0; y < 15; ++y)
+            {
+                TextView backgroundText = new TextView(this);
+                backgroundText.setText("BACKGROUND");
+                backgroundText.setX(x * 300);
+                backgroundText.setY(y * 200);
+                backgroundText.setRotation(-45);
+                layout.addView(backgroundText, 300, 200);
+            }
+        }
+
         {
             Button myButton = new Button(this);
             myButton.setText("Show Main");
-            myButton.setX(10);
-            myButton.setY(500);
+            myButton.setX(80);
+            myButton.setY(1500);
 
             myButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -66,8 +85,8 @@ public class MainUnityActivity extends OverrideUnityActivity {
         {
             Button myButton = new Button(this);
             myButton.setText("Send Msg");
-            myButton.setX(320);
-            myButton.setY(500);
+            myButton.setX(390);
+            myButton.setY(1500);
             myButton.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View v) {
                     mUnityPlayer.UnitySendMessage("Cube", "ChangeColor", "yellow");
@@ -79,8 +98,8 @@ public class MainUnityActivity extends OverrideUnityActivity {
         {
             Button myButton = new Button(this);
             myButton.setText("Unload");
-            myButton.setX(630);
-            myButton.setY(500);
+            myButton.setX(700);
+            myButton.setY(1500);
 
             myButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -93,8 +112,8 @@ public class MainUnityActivity extends OverrideUnityActivity {
         {
             Button myButton = new Button(this);
             myButton.setText("Finish");
-            myButton.setX(630);
-            myButton.setY(800);
+            myButton.setX(700);
+            myButton.setY(1800);
 
             myButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
