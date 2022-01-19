@@ -25,7 +25,7 @@ public class MainUnityActivity extends OverrideUnityActivity {
         handleIntent(intent);
 
         mUnityPlayer.setX(140);
-        mUnityPlayer.setY(150);
+        mUnityPlayer.setY(80);
         mUnityPlayer.setLayoutParams(new FrameLayout.LayoutParams(800,1000));
     }
 
@@ -105,7 +105,7 @@ public class MainUnityActivity extends OverrideUnityActivity {
 
             ArrayAdapter<String> adatper = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, voiceList );
             voiceNameSpinner.setAdapter(adatper);
-            voiceNameSpinner.setSelection(4);
+            voiceNameSpinner.setSelection(1);
             layout.addView(voiceNameSpinner, 920, 160);
         }
 
