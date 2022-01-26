@@ -122,8 +122,8 @@ public class MainUnityActivity extends OverrideUnityActivity {
             characterSpinner.setY(1440);
 
             ArrayList<String> characterList = new ArrayList<String>();
-            characterList.add("Shirley");
             characterList.add("Aki");
+            characterList.add("Shirley");
 
             ArrayAdapter<String> adatper = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, characterList );
             characterSpinner.setAdapter(adatper);
@@ -133,7 +133,7 @@ public class MainUnityActivity extends OverrideUnityActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     FrameLayout layout = (FrameLayout) getWindow().getDecorView();
                     String characterName = ((Spinner) layout.findViewWithTag("Spinner_Character")).getSelectedItem().toString();
-                    mUnityPlayer.UnitySendMessage("Canvas", "SetCharater", characterName);
+                    mUnityPlayer.UnitySendMessage("AnimationManager", "SetCharacter", characterName);
                 }
 
                 @Override
@@ -178,7 +178,7 @@ public class MainUnityActivity extends OverrideUnityActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     FrameLayout layout = (FrameLayout) getWindow().getDecorView();
                     String motionName = ((Spinner) layout.findViewWithTag("Spinner_Motion")).getSelectedItem().toString();
-                    mUnityPlayer.UnitySendMessage("Canvas", "SetMotion", motionName);
+                    mUnityPlayer.UnitySendMessage("SpeechSynthesisManager", "SetMotion", motionName);
                 }
 
                 @Override
@@ -235,10 +235,10 @@ public class MainUnityActivity extends OverrideUnityActivity {
                 public void onClick(View v) {
                     FrameLayout layout = (FrameLayout) getWindow().getDecorView();
                     String voiceName = ((Spinner) layout.findViewWithTag("Spinner_TtsVoice")).getSelectedItem().toString();
-                    mUnityPlayer.UnitySendMessage("Canvas", "SetVoice", voiceName);
+                    mUnityPlayer.UnitySendMessage("AnimationManager", "SetVoice", voiceName);
 
                     String spokenText = ((EditText) layout.findViewWithTag("EditText_SpokenText")).getText().toString();
-                    mUnityPlayer.UnitySendMessage("Canvas", "Speak", spokenText);
+                    mUnityPlayer.UnitySendMessage("AnimationManager", "Speak", spokenText);
                 }
             });
             layout.addView(myButton, 920, 200);
