@@ -124,6 +124,7 @@ public class MainUnityActivity extends OverrideUnityActivity {
             ArrayList<String> characterList = new ArrayList<String>();
             characterList.add("Aki");
             characterList.add("Shirley");
+            characterList.add("Xiaoyou");
 
             ArrayAdapter<String> adatper = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, characterList );
             characterSpinner.setAdapter(adatper);
