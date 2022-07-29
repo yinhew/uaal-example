@@ -2,6 +2,7 @@ package com.unity.mynativeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,11 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import com.unity3d.player.OverrideUnityActivity;
 
 public class MainUnityActivity extends OverrideUnityActivity {
+    private Handler uiHandler;
+
     // Setup activity layout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class MainUnityActivity extends OverrideUnityActivity {
         mUnityPlayer.setX(140);
         mUnityPlayer.setY(80);
         mUnityPlayer.setLayoutParams(new FrameLayout.LayoutParams(800,1000));
+
+        uiHandler = new Handler();
     }
 
     @Override
@@ -57,6 +60,45 @@ public class MainUnityActivity extends OverrideUnityActivity {
 
     @Override public void onUnityPlayerUnloaded() {
         showMainActivity("");
+    }
+
+    public void receiveTtsVoiceList(String voices) {
+        final String[] voiceArray = voices.split("\t");
+        final ArrayAdapter<String> voiceArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, voiceArray );
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                FrameLayout layout = (FrameLayout) getWindow().getDecorView();
+                Spinner voiceSpinner = (Spinner) layout.findViewWithTag("Spinner_TtsVoice");
+                voiceSpinner.setAdapter(voiceArrayAdapter);
+            }
+        });
+    }
+
+    public void receiveCharacterList(String characters) {
+        final String[] characterArray = characters.split("\t");
+        final ArrayAdapter<String> characterArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, characterArray );
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                FrameLayout layout = (FrameLayout) getWindow().getDecorView();
+                Spinner characterSpinner = (Spinner) layout.findViewWithTag("Spinner_Character");
+                characterSpinner.setAdapter(characterArrayAdapter);
+            }
+        });
+    }
+
+    public void receiveMotionList(String motions) {
+        final String[] motionArray = motions.split("\t");
+        final ArrayAdapter<String> motionArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, motionArray );
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                FrameLayout layout = (FrameLayout) getWindow().getDecorView();
+                Spinner motionSpinner = (Spinner) layout.findViewWithTag("Spinner_Motion");
+                motionSpinner.setAdapter(motionArrayAdapter);
+            }
+        });
     }
 
     public void addControlsToFrame() {
@@ -120,15 +162,6 @@ public class MainUnityActivity extends OverrideUnityActivity {
             characterSpinner.setBackgroundColor(0xffffffff);
             characterSpinner.setX(80);
             characterSpinner.setY(1440);
-
-            ArrayList<String> characterList = new ArrayList<String>();
-            characterList.add("Aki");
-            characterList.add("Shirley");
-            characterList.add("Xiaoyou");
-
-            ArrayAdapter<String> adatper = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, characterList );
-            characterSpinner.setAdapter(adatper);
-            characterSpinner.setSelection(0);
             characterSpinner.setOnItemSelectedListener( new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -163,23 +196,12 @@ public class MainUnityActivity extends OverrideUnityActivity {
             motionSpinner.setBackgroundColor(0xffffffff);
             motionSpinner.setX(555);
             motionSpinner.setY(1440);
-
-            ArrayList<String> characterList = new ArrayList<String>();
-            characterList.add("Default");
-            characterList.add("Dance");
-            characterList.add("Happy");
-            characterList.add("Angry");
-            characterList.add("Cry");
-
-            ArrayAdapter<String> adatper = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, characterList );
-            motionSpinner.setAdapter(adatper);
-            motionSpinner.setSelection(0);
             motionSpinner.setOnItemSelectedListener( new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     FrameLayout layout = (FrameLayout) getWindow().getDecorView();
                     String motionName = ((Spinner) layout.findViewWithTag("Spinner_Motion")).getSelectedItem().toString();
-                    mUnityPlayer.UnitySendMessage("SpeechSynthesisManager", "SetMotion", motionName);
+                    mUnityPlayer.UnitySendMessage("AnimationManager", "SetMotion", motionName);
                 }
 
                 @Override
@@ -208,21 +230,6 @@ public class MainUnityActivity extends OverrideUnityActivity {
             ttsVoiceSpinner.setBackgroundColor(0xffffffff);
             ttsVoiceSpinner.setX(80);
             ttsVoiceSpinner.setY(1610);
-
-            ArrayList<String> voiceList = new ArrayList<String>();
-            voiceList.add("enUSJessaNeural");
-            voiceList.add("enUSJennyNeural");
-            voiceList.add("deDEKatjaNeural");
-            voiceList.add("jaJPNanamiNeural");
-            voiceList.add("zhCNXiaoxiaoNeural");
-            voiceList.add("zhCNXiaoshuangNeural");
-            voiceList.add("zhCNXiaochenNeural");
-            voiceList.add("zhCNYunyangNeural");
-            voiceList.add("zhCNYunxiNeural");
-
-            ArrayAdapter<String> adatper = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, voiceList );
-            ttsVoiceSpinner.setAdapter(adatper);
-            ttsVoiceSpinner.setSelection(1);
             layout.addView(ttsVoiceSpinner, 920, 120);
         }
 
