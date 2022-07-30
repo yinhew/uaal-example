@@ -27,9 +27,9 @@ public class MainUnityActivity extends OverrideUnityActivity {
         Intent intent = getIntent();
         handleIntent(intent);
 
-        mUnityPlayer.setX(140);
-        mUnityPlayer.setY(80);
-        mUnityPlayer.setLayoutParams(new FrameLayout.LayoutParams(800,1000));
+        mUnityPlayer.setX(-420);
+        mUnityPlayer.setY(0);
+        mUnityPlayer.setLayoutParams(new FrameLayout.LayoutParams(1920,1080));
 
         uiHandler = new Handler();
     }
