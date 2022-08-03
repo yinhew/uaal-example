@@ -106,18 +106,18 @@ public class MainUnityActivity extends OverrideUnityActivity {
         layout.setBackgroundColor(0xff009f9f);
 
         // Background
-        //for (int x = 0; x < 10; ++x)
-        //{
-        //    for (int y = 0; y < 20; ++y)
-        //    {
-        //        TextView backgroundText = new TextView(this);
-        //        backgroundText.setText("BACKGROUND");
-        //        backgroundText.setX(x * 300);
-        //        backgroundText.setY(y * 200);
-        //        backgroundText.setRotation(-45);
-        //        layout.addView(backgroundText, 300, 200);
-        //    }
-        //}
+        for (int x = 0; x < 10; ++x)
+        {
+            for (int y = 0; y < 20; ++y)
+            {
+                TextView backgroundText = new TextView(this);
+                backgroundText.setText("BACKGROUND");
+                backgroundText.setX(x * 300);
+                backgroundText.setY(y * 200);
+                backgroundText.setRotation(-45);
+                layout.addView(backgroundText, 300, 200);
+            }
+        }
 
         // Spoken text label
         {
